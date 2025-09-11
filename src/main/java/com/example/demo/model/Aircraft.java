@@ -1,10 +1,9 @@
-package com.example.demo.classes;
+package com.example.demo.model;
 
+import com.example.demo.model.enums.AircraftStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -23,20 +22,10 @@ import java.util.Date;
 )
 @Getter
 @Setter
-public class aircraft {
+public class Aircraft {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aircraft_seq")
-    @GenericGenerator(
-            name = "aircraft_seq",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @Parameter(name = "sequence_name", value = "aircraft_sequence"),
-                    @Parameter(name = "initial_value", value = "1"),
-                    @Parameter(name = "increment_size", value = "1")
-            }
-    )
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="aircraft_model", nullable=false, length=50)
@@ -70,9 +59,9 @@ public class aircraft {
     private Date updatedAt;
 
 
-    public aircraft() {}
+    public Aircraft() {}
 
-    public aircraft(String model,String registrationNumber, Integer capacity, AircraftStatus status ) {
+    public Aircraft(String model,String registrationNumber, Integer capacity, AircraftStatus status ) {
         this.model = model;
         this.registrationNumber = registrationNumber;
         this.capacity = capacity;
@@ -82,7 +71,3 @@ public class aircraft {
 
 }
 
-enum AircraftStatus {
-    ACTIVE,
-    INACTIVE
-}

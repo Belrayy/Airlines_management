@@ -1,27 +1,27 @@
 package com.example.demo.controller;
 
-import com.example.demo.classes.aircraft;
-import com.example.demo.services.aircraftService;
+import com.example.demo.model.Aircraft;
+import com.example.demo.services.AircraftService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
 @RequestMapping("/api/aircraft")
-public class aircraftController {
+public class AircraftController {
 
-    private aircraftService service;
+    private AircraftService service;
 
-    public aircraftController(aircraftService service){
+    public AircraftController(AircraftService service){
         this.service = service;
     }
 
     @GetMapping
-    public List<aircraft> getAll(){
+    public List<Aircraft> getAll(){
         return service.getAll();
     }
 
     @PostMapping
-    public aircraft save(@RequestBody aircraft aircraft){
+    public Aircraft save(@RequestBody Aircraft aircraft){
         return service.save(aircraft);
     }
 }

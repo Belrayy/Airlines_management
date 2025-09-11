@@ -1,10 +1,8 @@
-package com.example.demo.classes;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -23,24 +21,14 @@ import java.util.Date;
 )
 @Getter
 @Setter
-public class flight {
+public class Flight {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flight_seq")
-    @GenericGenerator(
-            name = "flight_seq",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @Parameter(name = "sequence_name", value = "flight_sequence"),
-                    @Parameter(name = "initial_value", value = "1"),
-                    @Parameter(name = "increment_size", value = "1")
-            }
-    )
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Flight number is required")
-    @Column(name = "flightNumber", nullable = false, unique = true)
+    @Column(name = "FLIGHTNUMBER", nullable = false, unique = true)
     private String flightNumber;
 
     @NotBlank(message = "Airline is required")
@@ -52,10 +40,12 @@ public class flight {
     @NotBlank(message = "Destination of flight is required")
     private String destination;
 
+    @Column(name = "DEPARTURETIME")
     @NotNull(message = "Departure time is required")
     @Temporal(TemporalType.TIMESTAMP)
     private Date departureTime;
 
+    @Column(name = "ARRIVALTIME")
     @NotNull(message = "Arrival time is required")
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrivalTime;
@@ -73,14 +63,17 @@ public class flight {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    public flight() {}
+    public Flight() {}
 
-    public flight(String flightNumber, String airline, String origin, String destination) {
+    public Flight(String flightNumber, String airline, String origin, String destination, Date departureTime, Date arrivalTime, Integer capacity) {
         this.flightNumber = flightNumber;
         this.airline = airline;
         this.origin = origin;
         this.destination = destination;
-
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+        this.capacity = capacity;
     }
+
 
 }

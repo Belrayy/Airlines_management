@@ -1,11 +1,10 @@
-package com.example.demo.classes;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(
@@ -18,20 +17,10 @@ import org.hibernate.annotations.GenericGenerator;
 )
 @Getter
 @Setter
-public class airport {
+public class Airport {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "airport_seq")
-    @GenericGenerator(
-            name = "airport_seq",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "airport_sequence"),
-                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
-                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
-            }
-    )
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Airport ID is required")
@@ -47,9 +36,9 @@ public class airport {
     @Column(nullable = false)
     private String city;
 
-    airport() {
+    Airport() {
     }
-    public airport(String airportId, String airportName, String city) {
+    public Airport(String airportId, String airportName, String city) {
         this.airportId = airportId;
         this.airportName = airportName;
         this.city = city;
