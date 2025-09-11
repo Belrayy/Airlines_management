@@ -2,25 +2,23 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Aircraft;
 import com.example.demo.services.AircraftService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
 @RequestMapping("/api/aircraft")
+@RequiredArgsConstructor
 public class AircraftController {
 
-    private AircraftService service;
+    private final AircraftService service;
 
-    public AircraftController(AircraftService service){
-        this.service = service;
-    }
-
-    @GetMapping
+    @GetMapping("/")
     public List<Aircraft> getAll(){
         return service.getAll();
     }
 
-    @PostMapping
+    @PostMapping("/")
     public Aircraft save(@RequestBody Aircraft aircraft){
         return service.save(aircraft);
     }
