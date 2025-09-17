@@ -1,1 +1,5 @@
 application de vol d avion dispo
+
+
+netstat -ano | findstr :8080
+taskkill /PID 6392 /F
