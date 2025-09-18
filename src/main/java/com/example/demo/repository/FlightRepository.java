@@ -8,7 +8,7 @@ import com.example.demo.model.Flight;
 
 public interface FlightRepository extends JpaRepository<Flight, Long>{
 
-    Optional<Flight> findByFlightNumber(String registrationNumber);
-    boolean existsByFlightNumber(String registrationNumber);
+    Optional<Flight> findByFlightNumber(String flightNumber);
+    boolean existsByFlightNumber(String flightNumber);
 
 }

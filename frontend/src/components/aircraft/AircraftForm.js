@@ -16,7 +16,7 @@ function AircraftForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post("http://localhost:8080/api/aircrafts", form)
+    axios.post("http://localhost:8080/api/aircrafts/", form)
       .then(() => {
         alert("Aircraft added!");
         setForm({ model: "", registrationNumber: "", capacity: "", status: "ACTIVE" });

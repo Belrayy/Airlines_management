@@ -5,7 +5,7 @@ function AirportList() {
   const [airport, setAirport] = useState([]);
 
   const fetchAirport = () => {
-    axios.get("http://localhost:8080/api/airport")
+    axios.get("http://localhost:8080/api/airport/")
       .then(res => setAirport(res.data))
       .catch(err => console.error(err));
   };

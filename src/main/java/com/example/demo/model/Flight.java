@@ -34,11 +34,13 @@ public class Flight {
     @NotBlank(message = "Airline is required")
     private String airline;
 
-    @NotBlank(message = "Origin of flight is required")
-    private String origin;
+    @ManyToOne
+    @NotNull(message = "Origin of flight is required")
+    private Airport origin;
 
-    @NotBlank(message = "Destination of flight is required")
-    private String destination;
+    @ManyToOne
+    @NotNull(message = "Destination of flight is required")
+    private Airport destination;
 
     @Column(name = "DEPARTURETIME")
     @NotNull(message = "Departure time is required")
@@ -50,8 +52,9 @@ public class Flight {
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrivalTime;
 
-    @Positive(message = "Capacity must be positive")
-    private Integer capacity;
+    @ManyToOne
+    @NotNull(message = "Aircraft is required")
+    private Aircraft aircraft;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -63,16 +66,19 @@ public class Flight {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+
+
+
     public Flight() {}
 
-    public Flight(String flightNumber, String airline, String origin, String destination, Date departureTime, Date arrivalTime, Integer capacity) {
+    public Flight(String flightNumber, String airline, Airport origin, Airport destination, Date departureTime, Date arrivalTime, Aircraft aircraft) {
         this.flightNumber = flightNumber;
         this.airline = airline;
         this.origin = origin;
         this.destination = destination;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
-        this.capacity = capacity;
+        this.aircraft = aircraft;
     }
 
 

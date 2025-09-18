@@ -45,9 +45,6 @@ public class Aircraft {
     @Column(nullable=false , length=20)
     private AircraftStatus status;
 
-    @Version
-    private Long Version;
-
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", updatable = false)

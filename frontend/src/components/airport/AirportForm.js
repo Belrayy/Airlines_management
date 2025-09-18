@@ -15,7 +15,7 @@ function AirportForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post("http://localhost:8080/api/airport", form)
+    axios.post("http://localhost:8080/api/airport/", form)
       .then(() => {
         alert("Airport added!");
         setForm({ airportId: "", airportName: "", city: "" });

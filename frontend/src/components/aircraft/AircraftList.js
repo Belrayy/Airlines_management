@@ -5,7 +5,7 @@ function AircraftList() {
   const [aircrafts, setAircrafts] = useState([]);
 
   const fetchAircrafts = () => {
-    axios.get("http://localhost:8080/api/aircrafts")
+    axios.get("http://localhost:8080/api/aircraft/")
       .then(res => setAircrafts(res.data))
       .catch(err => console.error(err));
   };

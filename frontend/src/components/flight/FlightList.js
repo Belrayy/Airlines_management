@@ -5,7 +5,7 @@ function FlightList() {
   const [flight, setFlight] = useState([]);
 
   const fetchFlight = () => {
-    axios.get("http://localhost:8080/api/flight")
+    axios.get("http://localhost:8080/api/flight/")
       .then(res => setFlight(res.data))
       .catch(err => console.error(err));
   };

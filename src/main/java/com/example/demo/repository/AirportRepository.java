@@ -10,8 +10,8 @@ import com.example.demo.model.Airport;
 
 public interface AirportRepository extends JpaRepository<Airport,Long>{
 
-    Optional<Airport> findByairportId(String airportId);
-    boolean existsByairportId(String airportId);
+    Optional<Airport> findByAirportId(String airportId);
+    boolean existsByAirportId(String airportId);
 
 
 }

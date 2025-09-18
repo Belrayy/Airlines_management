@@ -36,8 +36,7 @@ public class Airport {
     @Column(nullable = false)
     private String city;
 
-    Airport() {
-    }
+    public Airport() {}
     public Airport(String airportId, String airportName, String city) {
         this.airportId = airportId;
         this.airportName = airportName;

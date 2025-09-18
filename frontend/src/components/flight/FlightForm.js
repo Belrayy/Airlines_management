@@ -19,7 +19,7 @@ function FlightForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post("http://localhost:8080/api/flight", form)
+    axios.post("http://localhost:8080/api/flight/", form)
       .then(() => {
         alert("Flight added!");
         setForm({ flightNumber: "", airline: "", origin: "", destination: "", departureTime: "", arrivalTime: "", capacity: "" });
@@ -62,7 +62,7 @@ function FlightForm() {
           type="text"
           name="destination"
           placeholder="Destination"
-          value={form.airline}
+          value={form.destination}
           onChange={handleChange}
           required
         />
