@@ -20,7 +20,11 @@ function FlightList() {
       <ul>
         {flight.map(f => (
           <li key={f.id}>
-            <b>{f.flightNumber}</b> ({f.airline}) - {f.origin} - {f.destination} - {f.departureTime} - {f.arrivalTime} - {f.capacity} seats
+            <b>{f.flightNumber}</b> ({f.airline}) -
+            {f.origin?.airportName} → {f.destination?.airportName} -
+            {new Date(f.departureTime).toLocaleString()} -
+            {new Date(f.arrivalTime).toLocaleString()} -
+            {f.aircraft?.model}
           </li>
         ))}
       </ul>
