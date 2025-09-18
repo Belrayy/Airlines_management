@@ -1,24 +1,60 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+import AircraftList from "./components/aircraft/AircraftList";
+import AircraftForm from "./components/aircraft/AircraftForm";
+import FlightList from "./components/flight/FlightList";
+import FlightForm from "./components/flight/FlightForm";
+import AirportList from "./components/airport/AirportList";
+import AirportForm from "./components/airport/AirportForm";
 
 function App() {
-  const [aircraft, setAircraft] = useState([]);
-
-  useEffect(() => {
-    axios.get("http://localhost:8080/api/aircraft/")
-      .then(response => setAircraft(response.data))
-      .catch(error => console.error(error));
-  }, []);
-
   return (
-    <div>
-      <h1>Aircraft List</h1>
-      <ul>
-        {aircraft.map((a, index) => (
-          <li key={index}>{a.name}</li>
-        ))}
-      </ul>
-    </div>
+    <Router>
+      <div style={{ margin: "20px" }}>
+        <h1>Management Dashboard</h1>
+        <nav>
+          <Link to="/aircrafts">Aircrafts</Link> |{" "}
+          <Link to="/flights">Flights</Link> |{" "}
+          <Link to="/airports">Airports</Link>
+        </nav>
+
+        <Routes>
+          {/* Default Home Page */}
+          <Route path="/" element={<h2>Welcome! Choose a section above.</h2>} />
+
+          <Route
+            path="/aircrafts"
+            element={
+              <>
+                <AircraftForm />
+                <AircraftList />
+              </>
+            }
+          />
+
+          <Route
+            path="/flights"
+            element={
+              <>
+                <FlightForm />
+                <FlightList />
+              </>
+            }
+          />
+
+          <Route
+            path="/airports"
+            element={
+              <>
+                <AirportForm />
+                <AirportList />
+              </>
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
