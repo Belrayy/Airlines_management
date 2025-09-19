@@ -43,6 +43,7 @@ public class Aircraft {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable=false , length=20)
+    @NotNull(message = "Status is required")
     private AircraftStatus status;
 
     @CreationTimestamp

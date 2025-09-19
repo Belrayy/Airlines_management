@@ -1,6 +1,9 @@
 package com.example.demo;
 
+import com.example.demo.model.Aircraft;
+import com.example.demo.model.Airport;
 import com.example.demo.model.Flight;
+import com.example.demo.model.enums.AircraftStatus;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -23,6 +26,9 @@ class FlightTest {
     private Flight flight;
     private Date departureTime;
     private Date arrivalTime;
+    private Airport origin;
+    private Airport destination;
+    private Aircraft aircraft;
 
     @BeforeEach
     void setUp() {
@@ -34,14 +40,25 @@ class FlightTest {
         cal.add(Calendar.HOUR, 2); // arrival 2 hours later
         arrivalTime = cal.getTime();
 
+        // Mock objects (you can adjust fields if Airport has more)
+        origin = new Airport();
+        origin.setAirportName("Los Angeles Intl");
+        origin.setCity("Los Angeles");
+
+        destination = new Airport();
+        destination.setAirportName("Amsterdam Schiphol");
+        destination.setCity("Amsterdam");
+
+        aircraft = new Aircraft("Boeing 737", "N12345", 300, AircraftStatus.ACTIVE);
+
         flight = new Flight(
                 "TK167",
                 "Turkish Airlines",
-                "LAX",
-                "AMS",
+                origin,
+                destination,
                 departureTime,
                 arrivalTime,
-                300
+                aircraft
         );
     }
 
@@ -52,11 +69,11 @@ class FlightTest {
 
         assertEquals("TK167", flight.getFlightNumber());
         assertEquals("Turkish Airlines", flight.getAirline());
-        assertEquals("LAX", flight.getOrigin());
-        assertEquals("AMS", flight.getDestination());
+        assertEquals(origin, flight.getOrigin());
+        assertEquals(destination, flight.getDestination());
         assertEquals(departureTime, flight.getDepartureTime());
         assertEquals(arrivalTime, flight.getArrivalTime());
-        assertEquals(300, flight.getCapacity());
+        assertEquals(300, flight.getAircraft().getCapacity());
     }
 
     @ParameterizedTest
@@ -77,20 +94,16 @@ class FlightTest {
         assertFalse(violations.isEmpty(), "Airline should not be null/blank");
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    @ValueSource(strings = {"  "})
-    void testInvalidOrigin(String invalidOrigin) {
-        flight.setOrigin(invalidOrigin);
+    @Test
+    void testNullOrigin() {
+        flight.setOrigin(null);
         Set<ConstraintViolation<Flight>> violations = validator.validate(flight);
-        assertFalse(violations.isEmpty(), "Origin should not be null/blank");
+        assertFalse(violations.isEmpty(), "Origin should not be null");
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    @ValueSource(strings = {"  "})
-    void testInvalidDestination(String invalidDestination) {
-        flight.setDestination(invalidDestination);
+    @Test
+    void testNullDestination() {
+        flight.setDestination(null);
         Set<ConstraintViolation<Flight>> violations = validator.validate(flight);
         assertFalse(violations.isEmpty(), "Destination should not be null");
     }
@@ -110,16 +123,9 @@ class FlightTest {
     }
 
     @Test
-    void testNegativeCapacity() {
-        flight.setCapacity(-10);
+    void testNullAircraft() {
+        flight.setAircraft(null);
         Set<ConstraintViolation<Flight>> violations = validator.validate(flight);
-        assertFalse(violations.isEmpty(), "Capacity must be positive");
-    }
-
-    @Test
-    void testZeroCapacity() {
-        flight.setCapacity(0);
-        Set<ConstraintViolation<Flight>> violations = validator.validate(flight);
-        assertFalse(violations.isEmpty(), "Capacity must be positive");
+        assertFalse(violations.isEmpty(), "Aircraft should not be null");
     }
 }
